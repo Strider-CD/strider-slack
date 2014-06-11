@@ -1,6 +1,3 @@
-process.env.SLACK_DOMAIN = "your subdomain";
-process.env.SLACK_WEBHOOK_TOKEN = "your webhook token";
-
 var sinon = require('sinon');
 var expect = require('chai').expect;
 
