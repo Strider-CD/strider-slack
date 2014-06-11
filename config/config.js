@@ -1,9 +1,12 @@
-console.log("will you load?");
 app.controller('SlackController', ['$scope', function ($scope) {
-  console.log("Slackcontroller loaded!");
+  $scope.$watch('configs[branch.name].slack.config', function (value) {
+    $scope.config = value;
+  });
+  $scope.saving = false;
   $scope.save = function () {
-    console.log(this);
-    console.log($scope);
-//    $scope.pluginConfig('slack', $scope.slackSubdomain
+    $scope.saving = true;
+    $scope.pluginConfig('slack', $scope.config, function() {
+      $scope.saving = false;
+    });
   };
 }]);

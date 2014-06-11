@@ -3,13 +3,14 @@
     <legend>Slack</legend>
     <input type="text"
     class="span3"
-    ng-model="subdomain"
+    ng-model="config.subdomain"
     placeholder="Subdomain">.slack.com
     <br>
     <input type="text"
-    class="span5"
-    ng-model="token"
+    class="span4"
+    ng-model="config.token"
     placeholder="Incoming Webhook Token">
-    <button class="btn" ng-click="save()" ng-disabled="saving">Save</button>
+    <br>
+    <button class="btn btn-success" ng-click="save()" ng-disabled="saving">Save</button>
   </fieldset>
 </div>
