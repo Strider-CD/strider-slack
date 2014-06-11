@@ -30,7 +30,7 @@
     "webapp": "webapp.js",
     "icon": "icon.png",
     "config": {
-      "controller": "StriderCtrl"
+      "controller": "SlackController"
     }
   }
 }

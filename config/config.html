@@ -1,0 +1,15 @@
+<div id="project_config_slack" class="well">
+  <fieldset>
+    <legend>Slack</legend>
+    <input type="text"
+    class="span3"
+    ng-model="subdomain"
+    placeholder="Subdomain">.slack.com
+    <br>
+    <input type="text"
+    class="span5"
+    ng-model="token"
+    placeholder="Incoming Webhook Token">
+    <button class="btn" ng-click="save()" ng-disabled="saving">Save</button>
+  </fieldset>
+</div>
