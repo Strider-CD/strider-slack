@@ -1,12 +1,17 @@
 {
-  "name": "strider-slack-hack",
-  "version": "0.0.0",
-  "description": "",
-  "main": "index.js",
+  "name": "strider-slack",
+  "version": "0.0.1",
+  "description": "Enables strider to fire webhooks to Slack",
+  "main": "webapp.js",
   "scripts": {
     "test": "mocha test.js"
   },
-  "author": "",
+  "keywords": [
+    "strider",
+    "slack",
+    "plugin"
+  ],
+  "author": "Keyvan Fatehi <keyvanfatehi@gmail.com>",
   "license": "ISC",
   "dependencies": {
     "slack-node": "0.0.9"
@@ -18,14 +23,14 @@
     "sinon-chai": "^2.5.0"
   },
   "strider":{
-    "id":"strider-slack",
-    "title": "strider-slack",
-    "icon": "icon.png",
-    "type": "basic",
-    "webapp": "webapp.js",
+    "type": "job",
+    "id":"slack",
+    "title": "Slack",
     "worker": "worker.js",
-    "templates": {
-      "tplname": "<div>Hello {{ name }}</div>"
+    "webapp": "webapp.js",
+    "icon": "icon.png",
+    "config": {
+      "controller": "StriderCtrl"
     }
   }
 }
