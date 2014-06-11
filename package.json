@@ -16,5 +16,16 @@
     "mocha": "^1.20.1",
     "sinon": "^1.10.2",
     "sinon-chai": "^2.5.0"
+  },
+  "strider":{
+    "id":"strider-slack",
+    "title": "strider-slack",
+    "icon": "icon.png",
+    "type": "basic",
+    "webapp": "webapp.js",
+    "worker": "worker.js",
+    "templates": {
+      "tplname": "<div>Hello {{ name }}</div>"
+    }
   }
 }
