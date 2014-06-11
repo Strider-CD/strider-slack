@@ -12,7 +12,11 @@ customize the message in index.js if you want
 
 In your strider runner's env vars, add your SLACK_DOMAIN and SLACK_WEBHOOK_TOKEN
 
-In `strider-simple-runner/lib/jobdata.js` around line 59 you'll find listeners phase.done -- add this code: `require('strider-slack-hack').phase_done(data);`
+In `strider-simple-runner/lib/index.js` around line 371 you'll find a `self.log` telling that the job was done without errors; add this code:
+
+```
+require('strider-slack-hack')(job.project.name).tested(jobdata.phases.test.exitCode);
+```
 
 restart strider
 
