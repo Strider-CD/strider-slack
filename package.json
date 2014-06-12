@@ -1,14 +1,17 @@
 {
   "name": "strider-slack",
-  "version": "0.1.0",
+  "version": "0.1.1",
   "description": "Plugin for Strider-CD to utilize Slack incoming webhook",
   "main": "webapp.js",
   "scripts": {
-    "test": "echo \"no tests\""
+    "test": "mocha -R spec --recursive test",
+    "tdd": "mocha -w -R spec --recursive test",
+    "build": "browserify controller.js -o config/config.js",
+    "watch": "watchify controller.js -o config/config.js"
   },
-  "repository" : {
-    "type" : "git",
-    "url" : "https://github.com/DFTi/strider-slack.git"
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/DFTi/strider-slack.git"
   },
   "keywords": [
     "strider",
@@ -32,5 +35,12 @@
     "config": {
       "controller": "SlackController"
     }
+  },
+  "devDependencies": {
+    "browserify": "^4.1.10",
+    "chai": "^1.9.1",
+    "mocha": "^1.20.1",
+    "sinon-chai": "^2.5.0",
+    "watchify": "^0.10.2"
   }
 }
