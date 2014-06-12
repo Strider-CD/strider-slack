@@ -2,9 +2,10 @@
 
   <fieldset>
     <legend>Configuration</legend>
-    <input type="text" class="span3"
+    <input type="text" class="span2"
     ng-model="config.subdomain"
-    placeholder="Subdomain">.slack.com
+    placeholder="Subdomain">
+    <span style="font-size:2em">.slack.com</span>
     <br>
     <input type="text" class="span4"
     ng-model="config.token"
@@ -13,21 +14,114 @@
 
   <fieldset>
     <legend>Customization</legend>
-    <input type="text" class="span4"
-    ng-model="config.test_pass_text"
-    placeholder="Test Pass Message">
+    <label for="icon_url">Icon URL</label>
+    <input type="text" name="icon_url" class="span4"
+    ng-model="config.icon_url">
     <br>
-    <input type="text" class="span4"
-    ng-model="config.test_fail_text"
-    placeholder="Test Fail Message">
+    <label for="username">Username of Sender</label>
+    <input type="text" name="username" class="span4"
+    ng-model="config.username">
     <br>
-    <input type="text" class="span4"
-    ng-model="config.icon_url"
-    placeholder="Icon URL">
+    <label for="test_pass_message">Test Pass Message</label>
+    <textarea name="test_pass_message" ng-model="config.test_pass_message"></textarea>
     <br>
-    <input type="text" class="span4"
-    ng-model="config.username"
-    placeholder="Username of Sender">
+    <label for="test_fail_message">Test Fail Message</label>
+    <textarea name="test_fail_message" ng-model="config.test_fail_message"></textarea>
   </fieldset>
   <button class="btn btn-success" ng-click="save()" ng-disabled="saving">Save</button>
+  <em onclick="$('#ejs_hint').modal(); return false;" style="cursor:pointer">ejs hint...</em>
+</div>
+
+<div id="ejs_hint" class="modal hide fade" role="dialog" aria-hidden="true">
+  <div class="modal-header">
+<p>The `job` object is loaded via EJS in your message fields. Here's what it looks like, for your convenience.</p>
+</div>
+<div class="modal-body"> 
+<pre>
+{ __v: 0,
+  type: 'TEST_ONLY',
+  user_id: 538f59c747e7bceb1e00000e,
+  project:
+   { _id: 5392dd10230ab72d3c000396,
+     name: 'org/repo',
+     display_name: 'org/repo',
+     display_url: 'https://bitbucket.com/org/repo',
+     creator:
+      { _id: 538f59c747e7bceb1e00000e,
+        __v: 2,
+        account_level: 1,
+        created: Wed Jun 04 2014 10:39:19 GMT-0700 (PDT),
+        email: 'you@example.com',
+        hash: '$2a$10$/dkVyiDP3qiyIUtb/uBOJ2QMMNsFOLhdjsMge',
+        salt: '$2a$10$/dkai5PqSyuSVO',
+        jobs: [],
+        projects: [ [Object], [Object], [Object] ],
+        accounts: [ [Object], [Object] ] },
+     __v: 6,
+     provider:
+      { id: 'bitbucket',
+        account: 'yourname',
+        repo_id: 'org/repo',
+        config:
+         { whitelist: [],
+           pull_requests: 'none',
+           repo: 'repo',
+           owner: 'org',
+           url: 'git://bitbucket.com/org/repo',
+           scm: 'git',
+           auth: [Object],
+           pk: 806826,
+           secret: '55443558606ff2764c4643ac8d6db2d' } },
+     branches:
+      [ { name: 'master',
+          pubkey: '...'
+          privkey: '...'
+          _id: 5392dd10230ab72d3c000398,
+          runner: [Object],
+          plugins: [Object],
+          deploy_on_green: true,
+          mirror_master: false,
+          active: true },
+        { name: '*',
+          _id: 5392dd10230ab72d3c000397,
+          runner: {},
+          plugins: [],
+          deploy_on_green: true,
+          mirror_master: true,
+          active: true } ],
+     prefetch_config: true,
+     public: false },
+  ref: { branch: 'master' },
+  created: Thu Jun 12 2014 00:56:33 GMT-0700 (PDT),
+  _id: 53995d31be25a8d05800000d,
+  errored: false,
+  warnings: [],
+  phases:
+   { cleanup: { commands: [] },
+     deploy: { commands: [] },
+     test: { commands: [] },
+     prepare: { commands: [] },
+     environment: { commands: [] } },
+  trigger:
+   { type: 'manual',
+     message: 'Manually Retesting',
+     timestamp: Thu Jun 12 2014 00:56:33 GMT-0700 (PDT),
+     source: { page: 'unknown', type: 'UI' },
+     author:
+      { id: 538f59c747e7bceb1e00000e,
+        email: 'you@example.com',
+        image: 'https://secure.gravatar.com/avatar/c6b199842a7203f22f1' } },
+  providerConfig:
+   { secret: '44558547c129f8146b706ff274e636a8c7df63d5b2d63',
+     pk: 806826,
+     auth: { type: 'ssh' },
+     scm: 'git',
+     url: 'git://bitbucket.com/org/repo',
+     owner: 'org',
+     repo: 'repo',
+     pull_requests: 'none',
+     whitelist: [] },
+  fromStriderJson: true }
+</pre>
+</div>
 </div>

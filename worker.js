@@ -2,20 +2,21 @@ var ejs = require('ejs');
 module.exports = {
   // run for each job
   init: function (config, job, context, cb) {
+    console.log(process.env);
     cb(null, {
       listen: function (io, context) {
         function onTested(id, data) {
           io.removeListener('job.status.tested', onTested)
+          var result = (data.exitCode === 0 ? 'pass' : 'fail');
           try {
-            var text = (data.exitCode === 0 ? config.test_pass_text : config.test_fail_text);
             io.emit('plugin.slack.fire', config.token, config.subdomain, {
               channel: config.channel,
               username: ejs.compile(config.username)(job),
-              text: ejs.compile(text)(job)
+              icon_url: config.icon_url,
+              text: ejs.compile(config['test_'+result+'_message'])(job)
             })
-            context.comment('Fired slack payload!');
           } catch (e) {
-            context.comment('Failed to fire slack payload: ' + e.message);
+            context.comment('Slack plugin error. '+e.message);
             return
           }
         }

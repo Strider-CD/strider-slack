@@ -20,7 +20,7 @@ module.exports = {
     io.on('plugin.slack.fire', function(token, subdomain, payload) {
       slack = new Slack(token, subdomain);
       slack.webhook(payload, function(err, response) {
-        if (err) console.error(err); else console.log(response);
+        if (err) console.error(err.message); else console.log(response);
       })
     })
   }
