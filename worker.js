@@ -1,3 +1,4 @@
+var ejs = require('ejs');
 module.exports = {
   // run for each job
   init: function (config, job, context, cb) {
