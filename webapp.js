@@ -9,11 +9,11 @@ module.exports = {
     icon_url: { type: String, default: 'http://media.stridercd.com/img/logo.png' },
     test_pass_text: {
       type: String,
-      default: ':white_check_mark: Tests are passing!'
+      default: ':white_check_mark: Tests are passing'
     },
     test_fail_text: {
       type: String,
-      default: ':exclamation: Tests are failing!'
+      default: ':exclamation: Tests are failing'
     },
   },
   listen: function (io, context) {

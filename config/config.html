@@ -1,16 +1,33 @@
 <div id="project_config_slack" class="well">
+
   <fieldset>
-    <legend>Slack</legend>
-    <input type="text"
-    class="span3"
+    <legend>Configuration</legend>
+    <input type="text" class="span3"
     ng-model="config.subdomain"
     placeholder="Subdomain">.slack.com
     <br>
-    <input type="text"
-    class="span4"
+    <input type="text" class="span4"
     ng-model="config.token"
     placeholder="Incoming Webhook Token">
-    <br>
-    <button class="btn btn-success" ng-click="save()" ng-disabled="saving">Save</button>
   </fieldset>
+
+  <fieldset>
+    <legend>Customization</legend>
+    <input type="text" class="span4"
+    ng-model="config.test_pass_text"
+    placeholder="Test Pass Message">
+    <br>
+    <input type="text" class="span4"
+    ng-model="config.test_fail_text"
+    placeholder="Test Fail Message">
+    <br>
+    <input type="text" class="span4"
+    ng-model="config.icon_url"
+    placeholder="Icon URL">
+    <br>
+    <input type="text" class="span4"
+    ng-model="config.username"
+    placeholder="Username of Sender">
+  </fieldset>
+  <button class="btn btn-success" ng-click="save()" ng-disabled="saving">Save</button>
 </div>
