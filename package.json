@@ -1,10 +1,10 @@
 {
   "name": "strider-slack",
   "version": "0.0.1",
-  "description": "Enables strider to fire webhooks to Slack",
+  "description": "Plugin for Strider-CD to utilize Slack incoming webhook",
   "main": "webapp.js",
   "scripts": {
-    "test": "mocha test.js"
+    "test": "echo \"no tests\""
   },
   "keywords": [
     "strider",
