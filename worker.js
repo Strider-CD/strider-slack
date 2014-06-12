@@ -6,10 +6,11 @@ module.exports = {
         function onTested(id, data) {
           io.removeListener('job.status.tested', onTested)
           try {
+            var text = (data.exitCode === 0 ? config.test_pass_text : config.test_fail_text);
             io.emit('plugin.slack.fire', config.token, config.subdomain, {
-              channel: "#general",
-              username: "Strider-CD",
-              text: job.project.name+' tests '+(data.exitCode === 0 ? "passed" : "failed")
+              channel: config.channel,
+              username: ejs.compile(config.username)(job),
+              text: ejs.compile(text)(job)
             })
             context.comment('Fired slack payload!');
           } catch (e) {
@@ -20,5 +21,5 @@ module.exports = {
         io.on('job.status.tested', onTested)
       }
     })
-  },
+  }
 }
