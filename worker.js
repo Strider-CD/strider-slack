@@ -9,11 +9,17 @@ module.exports = {
           io.removeListener('job.status.tested', onTested)
           var result = (data.exitCode === 0 ? 'pass' : 'fail');
           try {
+            var _ = require('lodash');
+            var compile = function (tmpl) {
+              return ejs.compile(tmpl)(_.extend(job, {
+                _:_ // bring lodash into scope for convenience
+              }))
+            };
             io.emit('plugin.slack.fire', config.token, config.subdomain, {
               channel: config.channel,
-              username: ejs.compile(config.username)(job),
+              username: compile(config.username),
               icon_url: config.icon_url,
-              text: ejs.compile(config['test_'+result+'_message'])(job)
+              text: compile(config['test_'+result+'_message'])
             })
           } catch (e) {
             context.comment('Slack plugin error. '+e.message);
