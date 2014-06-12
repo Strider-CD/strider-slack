@@ -14,6 +14,7 @@
   "author": "Keyvan Fatehi <keyvanfatehi@gmail.com>",
   "license": "ISC",
   "dependencies": {
+    "ejs": "^1.0.0",
     "slack-node": "0.0.9"
   },
   "devDependencies": {
@@ -22,9 +23,9 @@
     "sinon": "^1.10.2",
     "sinon-chai": "^2.5.0"
   },
-  "strider":{
+  "strider": {
     "type": "job",
-    "id":"slack",
+    "id": "slack",
     "title": "Slack",
     "worker": "worker.js",
     "webapp": "webapp.js",
