@@ -19,4 +19,16 @@ app.controller('SlackController', ['$scope', '$http', function ($scope, $http) {
       $scope.saving = false;
     });
   };
+  $scope.hintsLoaded = {};
+  $scope.help = function () {
+    $('#ejs_hint').modal().on('shown', function () {
+      _.each(['bitbucket_hook', 'manual_retest'], function (kind) {
+        if ($scope.hintsLoaded[kind]) return false;
+        $.get('/ext/slack/ejs_hint/'+kind, function(data) {
+          $('#'+kind+'_hint').html($('<pre>').text(data));
+          $scope.hintsLoaded[kind] = true;
+        });
+      });
+    });
+  };
 }]);
