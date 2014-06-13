@@ -14,6 +14,7 @@ describe("worker", function() {
   var config = null;
   var job = null;
   var exitCode = null;
+  var out = null;
 
   var prepareWorker = function(done) {
     context = {
@@ -28,7 +29,7 @@ describe("worker", function() {
       expect(context.comment).not.to.have.been.called;
       work = function() {
         res.listen(io, context);
-        return io.emit.getCall(0).args[3];
+        return out = io.emit.getCall(0).args[3];
       };
       if (done) done();
     })
@@ -66,9 +67,22 @@ describe("worker", function() {
       work();
     });
 
+    it("uses the right icon", function() {
+      expect(out.text).to.include(":white_check_mark:");
+      expect(out.text).not.to.include(":exclamation:");
+    });
+
+    it("links happy text to the logs", function() {
+      expect(out.text).to.include("<http://example.com/strider-slack/job/123|Tests are passing>");
+    });
+
+    it("doesn't say fail", function() {
+      expect(out.text).not.to.include("fail");
+    });
+
     describe("manual trigger", function() {
-      it("does not link to a commit but shows branch", function() {
-        expect(work().text).to.eq(':white_check_mark: (master) Tests are passing :: <http://example.com/strider-slack/job/123|logs>')
+      it("does not try to render a link to an undefined commit", function() {
+        expect(out.text).not.to.include("undefined");
       });
     });
 
@@ -82,9 +96,31 @@ describe("worker", function() {
         job.trigger.url = url;
         prepareWorker();
       });
-      it("shows commit message as a link on a new line", function() {
-        expect(work().text).to.eq(":white_check_mark: (master) Tests are passing :: <http://example.com/strider-slack/job/123|logs>\n<"+url+"|"+message+">")
+      it("links commit message to trigger url", function() {
+        expect(work().text).to.include("<"+url+"|"+message+">")
       });
+    });
+  });
+
+
+  describe("test fail text", function() {
+    beforeEach(function() {
+      exitCode = 1;
+      prepareWorker();
+      work();
+    });
+
+    it("uses the right icon", function() {
+      expect(out.text).to.include(":exclamation:");
+      expect(out.text).not.to.include(":white_check_mark:");
+    });
+
+    it("links unhappy text to the logs", function() {
+      expect(out.text).to.include("<http://example.com/strider-slack/job/123|Tests are failing>");
+    });
+
+    it("doesn't say pass", function() {
+      expect(out.text).not.to.include("pass");
     });
   });
 });

@@ -36,7 +36,7 @@ app.controller('SlackController', ['$scope', '$http', function ($scope, $http) {
 
 },{"./schema":2}],2:[function(require,module,exports){
 var basicTemplate = function(icon, keyword) {
-  return icon+" (<%= ref.branch %>) Tests are passing :: <<%= process.env.strider_server_name %>/<%= project.name %>/job/<%= _id %>|logs><% if (trigger.url) { %>\n<<%= trigger.url %>|<%= trigger.message.trim() %>><% } %>"
+  return icon+" (<%= ref.branch %>) :: <<%= process.env.strider_server_name %>/<%= project.name %>/job/<%= _id %>|Tests are "+keyword+"><% if (trigger.url) { %> :: <<%= trigger.url %>|<%= trigger.message.trim() %>><% } %>"
 }
 
 module.exports = {
