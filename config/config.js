@@ -35,6 +35,10 @@ app.controller('SlackController', ['$scope', '$http', function ($scope, $http) {
 }]);
 
 },{"./schema":2}],2:[function(require,module,exports){
+var basicTemplate = function(icon, keyword) {
+  return icon+" (<%= ref.branch %>) Tests are passing :: <<%= process.env.strider_server_name %>/<%= project.name %>/job/<%= _id %>|logs><% if (trigger.url) { %>\n<<%= trigger.url %>|<%= trigger.message.trim() %>><% } %>"
+}
+
 module.exports = {
     token: {
       type: String,
@@ -58,11 +62,11 @@ module.exports = {
     },
     test_pass_message: {
       type: String,
-      default: ":white_check_mark: Tests are passing for <%= _.map(ref, function(k,v){ return k+' '+v }).join(', ') %> :: <<%= process.env.strider_server_name %>/<%= project.name %>/job/<%= _id %>|logs>"
+      default: basicTemplate(":white_check_mark:", "passing")
     },
     test_fail_message: {
       type: String,
-      default: ":exclamation: Tests are failing for <%= _.map(ref, function(k,v){ return k+' '+v }).join(', ') %> :: <<%= process.env.strider_server_name %>/<%= project.name %>/job/<%= _id %>|logs>"
+      default: basicTemplate(":exclamation:", "failing")
     }
 }
 
