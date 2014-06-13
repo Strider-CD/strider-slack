@@ -2,7 +2,8 @@ var ejs = require('ejs');
 module.exports = {
   // run for each job
   init: function (config, job, context, cb) {
-    console.log(job);
+    // Are we missing a trigger type hint? Log it out now: 
+    // console.log(job);
     cb(null, {
       listen: function (io, context) {
         function onTested(id, data) {
