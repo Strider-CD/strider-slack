@@ -123,4 +123,26 @@ describe("worker", function() {
       expect(out.text).not.to.include("pass");
     });
   });
+
+
+  describe("deploy success text", function() {
+    beforeEach(function() {
+      exitCode = 1;
+      prepareWorker();
+      work();
+    });
+
+    it("uses the right icon", function() {
+      expect(out.text).to.include(":exclamation:");
+      expect(out.text).not.to.include(":white_check_mark:");
+    });
+
+    it("links unhappy text to the logs", function() {
+      expect(out.text).to.include("<http://example.com/strider-slack/job/123|Tests are failing>");
+    });
+
+    it("doesn't say pass", function() {
+      expect(out.text).not.to.include("pass");
+    });
+  });
 });

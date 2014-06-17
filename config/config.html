@@ -27,6 +27,12 @@
     <br>
     <label for="test_fail_message">Test Fail Message</label>
     <textarea name="test_fail_message" ng-model="config.test_fail_message"></textarea>
+    <br>
+    <label for="deploy_pass_message">Deploy Pass Message</label>
+    <textarea name="deploy_pass_message" ng-model="config.deploy_pass_message"></textarea>
+    <br>
+    <label for="deploy_fail_message">Deploy Fail Message</label>
+    <textarea name="deploy_fail_message" ng-model="config.deploy_fail_message"></textarea>
   </fieldset>
   <button class="btn btn-success" ng-click="save()" ng-disabled="saving">Save</button>
   <button class="btn btn-info" ng-click="help()">Help</button>

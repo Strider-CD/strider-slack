@@ -35,8 +35,8 @@ app.controller('SlackController', ['$scope', '$http', function ($scope, $http) {
 }]);
 
 },{"./schema":2}],2:[function(require,module,exports){
-var basicTemplate = function(icon, keyword) {
-  return icon+" (<%= ref.branch %>) :: <<%= process.env.strider_server_name %>/<%= project.name %>/job/<%= _id %>|Tests are "+keyword+"><% if (trigger.url) { %> :: <<%= trigger.url %>|<%= trigger.message.trim() %>><% } %>"
+var basicTemplate = function(icon, message) {
+  return icon+" (<%= ref.branch %>) :: <<%= process.env.strider_server_name %>/<%= project.name %>/job/<%= _id %>|"+message+"><% if (trigger.url) { %> :: <<%= trigger.url %>|<%= trigger.message.trim() %>><% } %>"
 }
 
 module.exports = {
@@ -62,11 +62,19 @@ module.exports = {
     },
     test_pass_message: {
       type: String,
-      default: basicTemplate(":white_check_mark:", "passing")
+      default: basicTemplate(":white_check_mark:", "Tests are passing")
     },
     test_fail_message: {
       type: String,
-      default: basicTemplate(":exclamation:", "failing")
+      default: basicTemplate(":exclamation:", "Tests are failing")
+    },
+    deploy_pass_message: {
+      type: String,
+      default: basicTemplate(":white_check_mark:", "Deploy was successful")
+    },
+    deploy_fail_message: {
+      type: String,
+      default: basicTemplate(":exclamation:", "Deploy exited with a non-zero status!")
     }
 }
 
