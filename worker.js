@@ -35,7 +35,8 @@ module.exports = {
     cb(null, {
       listen: function (io, context) {
         notifyOn('test', config, job, io, context);
-        notifyOn('deploy', config, job, io, context);
+        if (/DEPLOY/.test(job.type))
+          notifyOn('deploy', config, job, io, context);
       }
     })
   }

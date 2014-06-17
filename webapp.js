@@ -12,7 +12,6 @@ module.exports = {
     })
   },
   globalRoutes: function (app) {
-    console.log("ROUTES LOADED");
     app.get('/ejs_hint/:kind', function (req, res) {
       if (req.user && req.user.account_level > 0)  {
         console.log("OK");
