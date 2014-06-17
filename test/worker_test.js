@@ -145,4 +145,28 @@ describe("worker", function() {
       expect(out.text).not.to.include("pass");
     });
   });
+
+  describe("deploy_on_green is true", function() {
+    beforeEach(function() {
+      job.type = "TEST_AND_DEPLOY";
+      prepareWorker();
+    });
+    it("listens for test and deploy event", function() {
+      work();
+      expect(io.on).to.have.been.calledTwice;
+      expect(io.on.getCall(0).args[0]).to.eq('job.status.tested');
+      expect(io.on.getCall(1).args[0]).to.eq('job.status.deployed');
+    });
+  })
+  describe("deploy_on_green is false", function() {
+    beforeEach(function() {
+      job.type = "TEST_ONLY";
+      prepareWorker();
+    });
+    it("only listens for test event", function() {
+      work();
+      expect(io.on).to.have.been.calledOnce;
+      expect(io.on.getCall(0).args[0]).to.eq('job.status.tested');
+    });
+  });
 });
