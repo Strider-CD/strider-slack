@@ -1,5 +1,6 @@
 <div id="project_config_slack" class="well">
-
+  <button class="btn btn-success" ng-click="save()" ng-disabled="saving">Save</button>
+  <button class="btn btn-info" ng-click="help()">Help</button>
   <fieldset>
     <legend>Configuration</legend>
     <input type="text" class="span2"
@@ -17,6 +18,10 @@
     <label for="icon_url">Icon URL</label>
     <input type="text" name="icon_url" class="span4"
     ng-model="config.icon_url">
+    <br>
+    <label for="channel">Channel</label>
+    <input type="text" name="channel" class="span4"
+    ng-model="config.channel">
     <br>
     <label for="username">Username of Sender</label>
     <input type="text" name="username" class="span4"

@@ -62,6 +62,13 @@ describe("worker", function() {
     expect(out.text.length).to.be.greaterThan(10);
   });
 
+  it("allows changing the channel", function() {
+    config.channel = "#builds";
+    prepareWorker();
+    var out = work();
+    expect(out.channel).to.eq('#builds');
+  });
+
   describe("test pass text", function() {
     beforeEach(function() {
       work();
