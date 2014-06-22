@@ -33,10 +33,10 @@ module.exports = {
     },
     deploy_pass_message: {
       type: String,
-      default: basicTemplate(":white_check_mark:", "Deploy was successful")
+      default: basicTemplate(":ship:", "Deploy was successful")
     },
     deploy_fail_message: {
       type: String,
-      default: basicTemplate(":exclamation:", "Deploy exited with a non-zero status!")
+      default: basicTemplate(":boom:", "Deploy exited with a non-zero status!")
     }
 }
