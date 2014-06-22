@@ -10,24 +10,28 @@ var ejs = require('ejs');
  */
 
 function phaseWatch(config, job, io, context) {
-  console.log("@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@");
+  var phase = null;
+  function onDeployError(id, data) {
+    slackPOST(io, job, {exitCode: 1}, context, config, 'deploy');
+    cleanup();
+  }
   function onPhaseDone(id, data) {
-    console.log("!!!!!!!!!!!!!!!!!!!!!!!!!!", data);
-    var phase = data.phase;
-    if (phase === "test") {
+    phase = data.phase;
+    if (phase === "test" || phase === "deploy") {
       slackPOST(io, job, data, context, config, phase);
-      if (data.nextPhase != "deploy") {
-        io.removeListener('job.status.phase.done', onPhaseDone);
+      if (data.next === "deploy") {
+        io.on('job.status.phase.errored', onDeployError);
+      } else {
+        cleanup();
       }
-    } else if (phase === "deploy") {
-      slackPOST(io, job, data, context, config, phase);
-      io.removeListener('job.status.phase.done', onPhaseDone);
     }
   }
-  io.on('job.status.cancelled', function() {
-    console.log("$$$$$$$$$$$$$$$$$$$$$$$");
+  function cleanup() {
     io.removeListener('job.status.phase.done', onPhaseDone);
-  });
+    io.removeListener('job.status.phase.errored', onDeployError);
+    io.removeListener('job.status.cancelled', cleanup);
+  }
+  io.on('job.status.cancelled', cleanup);
   io.on('job.status.phase.done', onPhaseDone);
 }
 
