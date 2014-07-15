@@ -64,7 +64,7 @@ function slackPOST(io, job, data, context, config, phase) {
       text: compile(config[phase+'_'+result+'_message'])
     })
   } catch (e) {
-    var emsg = 'Slack plugin had an error: '+e.message;
+    var emsg = 'Slack plugin had an error: '+e.message+'\n'+e.backtrace.join('\n');
     context.comment(emsg);
     console.error(emsg);
     return
