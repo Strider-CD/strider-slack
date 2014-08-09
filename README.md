@@ -1,5 +1,4 @@
-[![Dependency Status][dep-img]][dep-link]
-[![devDependency Status][dev-dep-img]][dev-dep-link]
+# strider-slack [![Dependency Status][dep-img]][dep-link] [![devDependency Status][dev-dep-img]][dev-dep-link]
 
 [![NPM][npm-badge-img]][npm-badge-link]
 
