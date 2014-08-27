@@ -23,6 +23,7 @@
   "dependencies": {
     "ejs": "^1.0.0",
     "lodash": "^2.4.1",
+    "lodash.foreach": "^2.4.1",
     "slack-node": "0.0.9"
   },
   "strider": {

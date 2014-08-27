@@ -1,9 +1,10 @@
 var schema = require('./schema');
+var _ = { each: require('lodash.foreach') };
 
 app.controller('SlackController', ['$scope', '$http', function ($scope, $http) {
   var normalizeConfig = function () {
     $scope.config = $scope.configs[$scope.branch.name].slack.config || {};
-    _(schema).each(function(val,key) {
+    _.each(schema, function(val,key) {
       if (! $scope.config[key]) $scope.config[key] = val.default;
     });
   };
