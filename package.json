@@ -1,6 +1,6 @@
 {
   "name": "strider-slack",
-  "version": "1.0.0",
+  "version": "1.0.1",
   "description": "Plugin for Strider-CD to utilize Slack incoming webhook",
   "main": "webapp.js",
   "scripts": {
