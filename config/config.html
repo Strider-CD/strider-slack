@@ -3,19 +3,17 @@
   <button class="btn btn-info" ng-click="help()">Help</button>
   <fieldset>
     <legend>Configuration</legend>
-    <input type="text" class="span2"
-    ng-model="config.subdomain"
-    placeholder="Subdomain">
-    <span style="font-size:2em">.slack.com</span>
-    <br>
-    <input type="text" class="span4"
-    ng-model="config.token"
-    placeholder="Incoming Webhook Token">
+    <p>Create an Incoming Webhook and paste your Webhook URL here!</p>
+    <input type="text" class="span12"
+    ng-model="config.webhookURL"
+    placeholder="https://hook.slack/services/etc">
   </fieldset>
 
   <fieldset>
     <legend>Customization</legend>
-    <label for="icon_url">Icon URL</label>
+    <label for="icon_url">Icon URL
+      <img style="float:right; width: 36px;"
+      ng-src="[[config.icon_url]]"/> </label>
     <input type="text" name="icon_url" class="span4"
     ng-model="config.icon_url">
     <br>
