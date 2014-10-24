@@ -1,9 +1,14 @@
 <div id="project_config_slack" class="well">
   <button class="btn btn-success" ng-click="save()" ng-disabled="saving">Save</button>
+  <button class="btn btn-primary" ng-click="normalize()">Fill Empty Fields</button>
   <button class="btn btn-info" ng-click="help()">Help</button>
+  <button class="btn btn-info" ng-click="test()">Test</button>
+
   <fieldset>
     <legend>Configuration</legend>
-    <p>Create an Incoming Webhook and paste your Webhook URL here!</p>
+    <label for="webhookURL">
+      <a href="https://my.slack.com/services/new/incoming-webhook">Create an Incoming Webhook</a> to get your webhook URL:
+    </label>
     <input type="text" class="span12"
     ng-model="config.webhookURL"
     placeholder="https://hook.slack/services/etc">
@@ -38,7 +43,9 @@
     <textarea name="deploy_fail_message" ng-model="config.deploy_fail_message"></textarea>
   </fieldset>
   <button class="btn btn-success" ng-click="save()" ng-disabled="saving">Save</button>
+  <button class="btn btn-primary" ng-click="normalize()">Fill Empty Fields</button>
   <button class="btn btn-info" ng-click="help()">Help</button>
+  <button class="btn btn-info" ng-click="test()">Test</button>
 </div>
 
 <div id="ejs_hint" class="modal hide fade" role="dialog" aria-hidden="true">
