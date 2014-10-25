@@ -1,8 +1,8 @@
 <div id="project_config_slack" class="well">
   <button class="btn btn-success" ng-click="save()" ng-disabled="saving">Save</button>
-  <button class="btn btn-primary" ng-click="normalize()">Fill Empty Fields</button>
+  <button class="btn btn-primary" ng-click="fillEmptyFields()">Fill Empty Fields</button>
   <button class="btn btn-info" ng-click="help()">Help</button>
-  <button class="btn btn-info" ng-click="test()">Test</button>
+  <button class="btn btn-info" ng-click="test()" ng-disabled="testing">Test</button>
 
   <fieldset>
     <legend>Configuration</legend>
@@ -19,7 +19,7 @@
     <label for="icon_url">Icon URL
       <img style="float:right; width: 36px;"
       ng-src="[[config.icon_url]]"/> </label>
-    <input type="text" name="icon_url" class="span4"
+    <input type="text" name="icon_url" class="span8"
     ng-model="config.icon_url">
     <br>
     <label for="channel">Channel</label>
@@ -43,9 +43,9 @@
     <textarea name="deploy_fail_message" ng-model="config.deploy_fail_message"></textarea>
   </fieldset>
   <button class="btn btn-success" ng-click="save()" ng-disabled="saving">Save</button>
-  <button class="btn btn-primary" ng-click="normalize()">Fill Empty Fields</button>
+  <button class="btn btn-primary" ng-click="fillEmptyFields()">Fill Empty Fields</button>
   <button class="btn btn-info" ng-click="help()">Help</button>
-  <button class="btn btn-info" ng-click="test()">Test</button>
+  <button class="btn btn-info" ng-click="test()" ng-disabled="testing">Test</button>
 </div>
 
 <div id="ejs_hint" class="modal hide fade" role="dialog" aria-hidden="true">
