@@ -3,40 +3,33 @@ var basicTemplate = function(icon, message) {
 }
 
 module.exports = {
-    token: {
-      type: String,
-      default: ''
-    },
-    subdomain: {
-      type: String,
-      default: ''
-    },
-    channel: {
-      type: String,
-      default: '#general'
-    },
-    username: {
-      type: String,
-      default: '<%= project.name %>'
-    },
-    icon_url: {
-      type: String,
-      default: 'http://media.stridercd.com/img/logo.png'
-    },
-    test_pass_message: {
-      type: String,
-      default: basicTemplate(":white_check_mark:", "Tests are passing")
-    },
-    test_fail_message: {
-      type: String,
-      default: basicTemplate(":exclamation:", "Tests are failing")
-    },
-    deploy_pass_message: {
-      type: String,
-      default: basicTemplate(":ship:", "Deploy was successful")
-    },
-    deploy_fail_message: {
-      type: String,
-      default: basicTemplate(":boom:", "Deploy exited with a non-zero status!")
-    }
+  webhookURL: String,
+  channel: {
+    type: String,
+    default: '#general'
+  },
+  username: {
+    type: String,
+    default: '<%= project.name %>'
+  },
+  icon_url: {
+    type: String,
+    default: '/ext/slack/bot_avatar'
+  },
+  test_pass_message: {
+    type: String,
+    default: basicTemplate(":white_check_mark:", "Tests are passing")
+  },
+  test_fail_message: {
+    type: String,
+    default: basicTemplate(":exclamation:", "Tests are failing")
+  },
+  deploy_pass_message: {
+    type: String,
+    default: basicTemplate(":ship:", "Deploy was successful")
+  },
+  deploy_fail_message: {
+    type: String,
+    default: basicTemplate(":boom:", "Deploy exited with a non-zero status!")
+  }
 }

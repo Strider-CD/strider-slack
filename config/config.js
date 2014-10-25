@@ -3,19 +3,28 @@ var schema = require('./schema');
 var _ = { each: require('lodash.foreach') };
 
 app.controller('SlackController', ['$scope', '$http', function ($scope, $http) {
-  var normalizeConfig = function () {
+  $scope.fillEmptyFields = function() {
     $scope.config = $scope.configs[$scope.branch.name].slack.config || {};
-    _.each(schema, function(val,key) {
-      if (! $scope.config[key]) $scope.config[key] = val.default;
+    _.each(schema, function(schemaValue,key) {
+      var value = $scope.config[key]
+      if (! value || value.length === 0 )
+        $scope.config[key] = schemaValue.default;
     });
-  };
-  normalizeConfig();
+  }
+  $scope.normalizeIconURL = function() {
+    var iconURL = $scope.config.icon_url
+    if (iconURL && iconURL[0] === '/') {
+      var root = window.location.protocol+'//'+window.location.host;
+      $scope.config.icon_url = root+$scope.config.icon_url
+    }
+  }
   $scope.$watch('configs[branch.name].slack.config', function (value) {
     $scope.config = value;
   });
   $scope.saving = false;
   $scope.save = function () {
-    normalizeConfig();
+    $scope.fillEmptyFields();
+    $scope.normalizeIconURL()
     $scope.saving = true;
     $scope.pluginConfig('slack', $scope.config, function() {
       $scope.saving = false;
@@ -33,6 +42,25 @@ app.controller('SlackController', ['$scope', '$http', function ($scope, $http) {
       });
     });
   };
+  $scope.test = function() {
+    webhookURL = $scope.config.webhookURL
+    if (webhookURL && webhookURL.length > 0) {
+      $scope.fillEmptyFields()
+      $scope.normalizeIconURL()
+      $scope.testing = true;
+      $http.post('/ext/slack/test', {
+        config: $scope.config
+      }).success(function(data, status, headers, config) {
+        alert('Looks good from here. Check your Slack!')
+      }).error(function(data, status, headers, config) {
+        alert(data)
+      })['finally'](function() {
+        $scope.testing = false;
+      })
+    } else {
+      alert('Webhook URL is required')
+    }
+  }
 }]);
 
 },{"./schema":32,"lodash.foreach":2}],2:[function(require,module,exports){
@@ -987,42 +1015,35 @@ var basicTemplate = function(icon, message) {
 }
 
 module.exports = {
-    token: {
-      type: String,
-      default: ''
-    },
-    subdomain: {
-      type: String,
-      default: ''
-    },
-    channel: {
-      type: String,
-      default: '#general'
-    },
-    username: {
-      type: String,
-      default: '<%= project.name %>'
-    },
-    icon_url: {
-      type: String,
-      default: 'http://media.stridercd.com/img/logo.png'
-    },
-    test_pass_message: {
-      type: String,
-      default: basicTemplate(":white_check_mark:", "Tests are passing")
-    },
-    test_fail_message: {
-      type: String,
-      default: basicTemplate(":exclamation:", "Tests are failing")
-    },
-    deploy_pass_message: {
-      type: String,
-      default: basicTemplate(":ship:", "Deploy was successful")
-    },
-    deploy_fail_message: {
-      type: String,
-      default: basicTemplate(":boom:", "Deploy exited with a non-zero status!")
-    }
+  webhookURL: String,
+  channel: {
+    type: String,
+    default: '#general'
+  },
+  username: {
+    type: String,
+    default: '<%= project.name %>'
+  },
+  icon_url: {
+    type: String,
+    default: '/ext/slack/bot_avatar'
+  },
+  test_pass_message: {
+    type: String,
+    default: basicTemplate(":white_check_mark:", "Tests are passing")
+  },
+  test_fail_message: {
+    type: String,
+    default: basicTemplate(":exclamation:", "Tests are failing")
+  },
+  deploy_pass_message: {
+    type: String,
+    default: basicTemplate(":ship:", "Deploy was successful")
+  },
+  deploy_fail_message: {
+    type: String,
+    default: basicTemplate(":boom:", "Deploy exited with a non-zero status!")
+  }
 }
 
 },{}]},{},[1])
