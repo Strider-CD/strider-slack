@@ -1,5 +1,6 @@
 var ejs = require('ejs')
   , _ = require('lodash')
+  , Entities = require('html-entities').XmlEntities
   , Slack = require('slackihook')
 
 module.exports = {
@@ -37,21 +38,48 @@ module.exports = {
   }
 }
 
+function removeSlackEvilAttr(str){
+    str = str.replace("&", "&amp;");
+    str = str.replace("<", "&lt;");
+    str = str.replace(">", "&gt;");
+    return str;
+}
+
 function slackPOST(io, job, data, context, config, phase) {
   var result = (data.exitCode === 0 ? 'pass' : 'fail');
+  if (job.trigger.message) {
+      var temp = job.trigger.message.split(/\n/);
+      job.trigger.message = removeSlackEvilAttr(temp[0]);
+      temp.splice(0, 1);
+      var more = temp.join("\n");
+      job.trigger.messagemore = removeSlackEvilAttr(more);
+  }
   try {
     var compile = function (tmpl) {
       return ejs.compile(tmpl)(_.extend(job, {
         _:_ // bring lodash into scope for convenience
       }))
     };
+    entities = new Entities();
+    var msg = entities.decode(compile(config[phase+'_'+result+'_message']));
     slack = new Slack(config.webhookURL);
-    slack.send({
+    var sendObject = {
       channel: config.channel,
       username: compile(config.username),
       icon_url: config.icon_url,
-      text: compile(config[phase+'_'+result+'_message'])
-    }, function(err) {
+      text: msg
+    }
+    if (job.trigger.messagemoremessagemore){
+        sendObject.attachments = [
+        {
+          "fallback": job.trigger.messagemore,
+          "text": job.trigger.messagemore,
+          "color": "#634545"
+        }
+      ];
+    }
+    
+    slack.send(sendObject, function(err) {
       // It's too late to add notes to the job; just log
       if (err) console.error(err.stack)
     })
