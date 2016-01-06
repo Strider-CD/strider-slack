@@ -24,7 +24,8 @@
     "ejs": "^1.0.0",
     "lodash": "^2.4.1",
     "lodash.foreach": "^2.4.1",
-    "slackihook": "^1.0.0"
+    "slackihook": "^1.0.0",
+    "html-entities": "~1.2.0"
   },
   "strider": {
     "type": "job",
